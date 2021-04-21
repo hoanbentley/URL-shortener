@@ -12,3 +12,7 @@ func (t *uc) CreateUrl(ctx context.Context, url *entities.Urls) error {
 func (t *uc) ListUrl(ctx context.Context) ([]*entities.Urls, error) {
 	return t.url.ListUrl(ctx)
 }
+
+func (t *uc) GetUrl(ctx context.Context, shortCode string) (*entities.Urls, error) {
+	return t.url.GetUrl(ctx, shortCode)
+}

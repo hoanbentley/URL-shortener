@@ -19,4 +19,5 @@ func NewUc(db string) UseCase {
 type UseCase interface {
 	CreateUrl(ctx context.Context, url *entities.Urls) error
 	ListUrl(ctx context.Context) ([]*entities.Urls, error)
+	GetUrl(ctx context.Context, shortCode string) (*entities.Urls, error)
 }

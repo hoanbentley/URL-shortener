@@ -32,7 +32,15 @@ func (s *ToDoService) ServeHTTP(resp http.ResponseWriter, req *http.Request) {
 		case http.MethodGet:
 			s.ListUrl(resp, req)
 		}
+	case "/get":
+		s.GetUrl(resp, req)
+	case "/get/":
+		s.GetUrl(resp, req)
 	}
+
+	/*router := mux.NewRouter()
+	router.HandleFunc("/get/{id}", s.GetUrl).Methods("GET")*/
+
 }
 
 func (s *ToDoService) CreateUrl(resp http.ResponseWriter, req *http.Request) {
@@ -73,4 +81,25 @@ func (s *ToDoService) ListUrl(resp http.ResponseWriter, req *http.Request) {
 	json.NewEncoder(resp).Encode(map[string][]*entities.Urls{
 		"data": url,
 	})
+}
+
+func (s *ToDoService) GetUrl(resp http.ResponseWriter, req *http.Request) {
+	log.Println("Halo")
+	shortCode := s.Trans.GetValue(req, "id")
+	log.Println("Short_code:", shortCode)
+	url, err := s.UseCase.GetUrl(req.Context(), shortCode.String)
+	resp.Header().Set("Content-Type", "application/json")
+	if err != nil {
+		resp.WriteHeader(http.StatusInternalServerError)
+		json.NewEncoder(resp).Encode(map[string]string{
+			"error": err.Error(),
+		})
+		return
+	}
+	/*json.NewEncoder(resp).Encode(map[string]*entities.Urls{
+		"data": url,
+	})*/
+	log.Println("Full URL:", url.FullUrl)
+	http.Redirect(resp, req, url.FullUrl, 301)
+
 }

@@ -59,3 +59,16 @@ func (l *liteDB) ListUrl(ctx context.Context) ([]*entities.Urls, error) {
 
 	return urls, nil
 }
+
+func (l *liteDB) GetUrl(ctx context.Context, shortCode string) (*entities.Urls, error) {
+	stmt := `SELECT short_code, full_url, expiry,number_of_hits FROM urls WHERE short_code = ?`
+	row := l.db.QueryRowContext(ctx, stmt, shortCode)
+
+	url := &entities.Urls{}
+	err := row.Scan(&url.ShortCode, &url.FullUrl, &url.Expiry, &url.NumberOfHits)
+	if err != nil {
+		return nil, err
+	}
+
+	return url, nil
+}

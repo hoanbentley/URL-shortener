@@ -1,6 +1,7 @@
 package transport
 
 import (
+	"database/sql"
 	"encoding/json"
 	"github.com/hoanbentley/URL-shortener/internal/entities"
 	"github.com/speps/go-hashids"
@@ -17,6 +18,13 @@ func NewTransport() *Transport {
 
 func (t *Transport) GetToken(req *http.Request) string {
 	return req.Header.Get("Authorization")
+}
+
+func (t *Transport) GetValue(req *http.Request, param string) sql.NullString {
+	return sql.NullString{
+		String: req.FormValue(param),
+		Valid:  true,
+	}
 }
 
 func (t *Transport) BuildUrl(req *http.Request) (*entities.Urls, error) {
