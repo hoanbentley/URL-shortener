@@ -27,6 +27,14 @@ func (t *Transport) GetValue(req *http.Request, param string) sql.NullString {
 	}
 }
 
+func (t *Transport) BuildEncodeFromShortCode() string {
+	hd := hashids.NewData()
+	h, _ := hashids.NewWithData(hd)
+	now := time.Now()
+	shortCode, _ := h.Encode([]int{int(now.Unix())})
+	return shortCode
+}
+
 func (t *Transport) BuildUrl(req *http.Request) (*entities.Urls, error) {
 	url := &entities.Urls{}
 	err := json.NewDecoder(req.Body).Decode(url)
@@ -35,15 +43,13 @@ func (t *Transport) BuildUrl(req *http.Request) (*entities.Urls, error) {
 		return nil, err
 	}
 
-	//build short code with encrypt data
-	hd := hashids.NewData()
-	h, _ := hashids.NewWithData(hd)
-	now := time.Now()
-	shortCode, _ := h.Encode([]int{int(now.Unix())})
+	//check full_url is null
+	if url.FullUrl == "" {
+		return nil, err
+	}
 
 	//set again in url structure
-	url.ShortCode = shortCode
-	url.Expiry = "60"
-	url.NumberOfHits = "1"
+	url.ShortCode = t.BuildEncodeFromShortCode()
+	url.NumberOfHits = 1
 	return url, nil
 }

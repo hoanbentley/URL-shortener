@@ -25,9 +25,9 @@ func NewLiteDB() *liteDB {
 	return nil
 }
 
-func (l *liteDB) GenerateUrl(ctx context.Context, t *entities.Urls) error {
+func (l *liteDB) GenerateUrl(ctx context.Context, url *entities.Urls) error {
 	stmt := `INSERT INTO urls (short_code, full_url, expiry, number_of_hits) VALUES (?, ?, ?, ?)`
-	_, err := l.db.ExecContext(ctx, stmt, &t.ShortCode, &t.FullUrl, &t.Expiry, &t.NumberOfHits)
+	_, err := l.db.ExecContext(ctx, stmt, &url.ShortCode, &url.FullUrl, &url.Expiry, &url.NumberOfHits)
 	if err != nil {
 		return err
 	}
@@ -71,4 +71,34 @@ func (l *liteDB) GetUrl(ctx context.Context, shortCode string) (*entities.Urls, 
 	}
 
 	return url, nil
+}
+
+func (l *liteDB) UpdateUrl(ctx context.Context, url *entities.Urls) error {
+	stmt := `UPDATE urls SET expiry = ?, number_of_hits = ? WHERE short_code = ?`
+	_, err := l.db.ExecContext(ctx, stmt, &url.Expiry, &url.NumberOfHits, &url.ShortCode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+func (l *liteDB) DeleteUrl(ctx context.Context, shortCode string) error {
+	stmt := `DELETE FROM urls WHERE short_code = ?`
+	_, err := l.db.ExecContext(ctx, stmt, shortCode)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
+// ValidateUser returns true/false if match user_id AND password
+func (l *liteDB) ValidateUser(ctx context.Context, userID, pwd sql.NullString) bool {
+	stmt := `SELECT user_id FROM users WHERE user_id = ? AND password = ?`
+	row := l.db.QueryRowContext(ctx, stmt, userID, pwd)
+	u := &entities.User{}
+	err := row.Scan(&u.ID)
+	if err != nil {
+		return false
+	}
+	return true
 }
