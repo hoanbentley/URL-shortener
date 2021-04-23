@@ -6,6 +6,7 @@ import (
 	"github.com/hoanbentley/URL-shortener/internal/entities"
 	"github.com/speps/go-hashids"
 	"net/url"
+	"regexp"
 	"time"
 )
 
@@ -19,6 +20,13 @@ func (u *uc) CreateUrl(ctx context.Context, urlParam *entities.Urls) (*entities.
 	_, err := url.ParseRequestURI(urlParam.FullUrl)
 	if err != nil {
 		return nil, errors.New("format url invalid")
+	}
+
+	//check xss url
+	//stringUrl := regexp.MustCompile("^([0-9a-zA-Z\\=-]+)-([0-9]+)$").MatchString
+	stringUrl := regexp.MustCompile("^[<>]").MatchString
+	if !stringUrl(urlParam.FullUrl) {
+		return nil, errors.New("input invalid, please try again test")
 	}
 
 	//build url structure

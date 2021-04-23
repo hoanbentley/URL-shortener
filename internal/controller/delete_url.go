@@ -25,7 +25,6 @@ func (s *ToDoService) DeleteUrl(resp http.ResponseWriter, req *http.Request) {
 	//Delete url by short code
 	param := mux.Vars(req)
 	shortCode := param["id"]
-
 	err := s.UseCase.DeleteUrl(req.Context(), shortCode)
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)
@@ -34,4 +33,7 @@ func (s *ToDoService) DeleteUrl(resp http.ResponseWriter, req *http.Request) {
 		})
 		return
 	}
+	json.NewEncoder(resp).Encode(map[string]string{
+		"mess": "Success",
+	})
 }

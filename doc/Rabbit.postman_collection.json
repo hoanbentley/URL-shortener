@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "ad7f0b5b-7d93-4cf1-bd62-fd61b66e6a24",
+		"name": "Rabbit",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/login?user_id=admin&password=admin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": "admin"
+						},
+						{
+							"key": "password",
+							"value": "admin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin/list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTkxNzQ3NjAsInVzZXJfaWQiOiJhZG1pbiJ9.GWgKxhXjTIgof-XSXH6MWYNZbm0d-Bn4n8cC8R1Qli0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/admin/list",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"full_url\" : \"https://microservices.io/patterns/microservices.html<\",\n    \"expiry\" : 60\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/create",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin/delete",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTkxNzQ3NjAsInVzZXJfaWQiOiJhZG1pbiJ9.GWgKxhXjTIgof-XSXH6MWYNZbm0d-Bn4n8cC8R1Qli0",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8080/admin/delete/ovxpDG3",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"delete",
+						"ovxpDG3"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Admin/search",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2MTkxNzU2MzIsInVzZXJfaWQiOiJhZG1pbiJ9.qdS2TrPrkUu2FXWTx9QWk8EhoJ4yTWvxUwz1xIrOKHk",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"short_code\" : \"gxm1mEr\",\n    \"full_url\" : \"https://microservices.io/patterns/microservices.html\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/admin/search",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"admin",
+						"search"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

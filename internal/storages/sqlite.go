@@ -91,6 +91,31 @@ func (l *liteDB) DeleteUrl(ctx context.Context, shortCode string) error {
 	return nil
 }
 
+func (l *liteDB) SearchUrl(ctx context.Context, shortCode, fullUrl string) ([]*entities.Urls, error) {
+	stmt := `SELECT short_code, full_url, expiry,number_of_hits FROM urls WHERE short_code = ?`
+	rows, err := l.db.QueryContext(ctx, stmt, shortCode)
+	if err != nil {
+		return nil, err
+	}
+	defer rows.Close()
+
+	var urls []*entities.Urls
+	for rows.Next() {
+		url := &entities.Urls{}
+		err := rows.Scan(&url.ShortCode, &url.FullUrl, &url.Expiry, &url.NumberOfHits)
+		if err != nil {
+			return nil, err
+		}
+		urls = append(urls, url)
+	}
+
+	if err := rows.Err(); err != nil {
+		return nil, err
+	}
+
+	return urls, nil
+}
+
 // ValidateUser returns true/false if match user_id AND password
 func (l *liteDB) ValidateUser(ctx context.Context, userID, pwd sql.NullString) bool {
 	stmt := `SELECT user_id FROM users WHERE user_id = ? AND password = ?`
