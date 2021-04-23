@@ -12,5 +12,6 @@ type Url interface {
 	GetUrl(ctx context.Context, shortCode string) (*entities.Urls, error)
 	UpdateUrl(ctx context.Context, urls *entities.Urls) error
 	DeleteUrl(ctx context.Context, shortCode string) error
+	SearchUrl(ctx context.Context, shortCode, fullUrl string) ([]*entities.Urls, error)
 	ValidateUser(ctx context.Context, userID, pwd sql.NullString) bool
 }

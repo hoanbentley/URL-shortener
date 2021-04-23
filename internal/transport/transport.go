@@ -2,13 +2,10 @@ package transport
 
 import (
 	"database/sql"
-	"encoding/json"
-	"github.com/hoanbentley/URL-shortener/internal/entities"
-	"github.com/speps/go-hashids"
 	"net/http"
-	"time"
 )
 
+type UserAuthKey int8
 type Transport struct {
 }
 
@@ -27,7 +24,7 @@ func (t *Transport) GetValue(req *http.Request, param string) sql.NullString {
 	}
 }
 
-func (t *Transport) BuildEncodeFromShortCode() string {
+/*func (t *Transport) BuildEncodeFromShortCode() string {
 	hd := hashids.NewData()
 	h, _ := hashids.NewWithData(hd)
 	now := time.Now()
@@ -45,11 +42,11 @@ func (t *Transport) BuildUrl(req *http.Request) (*entities.Urls, error) {
 
 	//check full_url is null
 	if url.FullUrl == "" {
-		return nil, err
+		return nil, errors.New("full url is null")
 	}
 
 	//set again in url structure
 	url.ShortCode = t.BuildEncodeFromShortCode()
 	url.NumberOfHits = 1
 	return url, nil
-}
+}*/
