@@ -3,9 +3,11 @@ package storages
 import (
 	"context"
 	"database/sql"
+	"fmt"
 	"github.com/hoanbentley/URL-shortener/internal/entities"
 	_ "github.com/mattn/go-sqlite3"
 	"log"
+	"strings"
 )
 
 type liteDB struct {
@@ -92,8 +94,18 @@ func (l *liteDB) DeleteUrl(ctx context.Context, shortCode string) error {
 }
 
 func (l *liteDB) SearchUrl(ctx context.Context, shortCode, fullUrl string) ([]*entities.Urls, error) {
-	stmt := `SELECT short_code, full_url, expiry,number_of_hits FROM urls WHERE short_code = ?`
-	rows, err := l.db.QueryContext(ctx, stmt, shortCode)
+	var where []string
+	if shortCode != "" {
+		shortCode = "%" + shortCode + "%"
+		where = append(where, fmt.Sprintf(" AND short_code LIKE '%s'", shortCode))
+	}
+
+	if fullUrl != "" {
+		fullUrl = "%" + fullUrl + "%"
+		where = append(where, fmt.Sprintf(" AND full_url LIKE '%s'", fullUrl))
+	}
+	stmt := "SELECT short_code, full_url, expiry,number_of_hits FROM urls WHERE 1 = 1 " + strings.Join(where, " ")
+	rows, err := l.db.QueryContext(ctx, stmt)
 	if err != nil {
 		return nil, err
 	}

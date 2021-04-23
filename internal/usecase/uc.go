@@ -22,7 +22,7 @@ type UseCase interface {
 	ListUrl(ctx context.Context) ([]*entities.Urls, error)
 	RedirectUrl(ctx context.Context, shortCode string) (*entities.Urls, error)
 	DeleteUrl(ctx context.Context, shortCode string) error
-	SearchUrl(ctx context.Context, shortCode string) ([]*entities.Urls, error)
+	SearchUrl(ctx context.Context, shortCode, fullUrl string) ([]*entities.Urls, error)
 	Validate(ctx context.Context, user, password sql.NullString) bool
 	CreateToken(id, jwtKey string) (string, error)
 	ValidToken(token, JWTKey string) (string, bool)
