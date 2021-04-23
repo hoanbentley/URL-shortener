@@ -35,7 +35,7 @@ func (s *ToDoService) SearchUrl(resp http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	url, err := s.UseCase.SearchUrl(req.Context(), urlInput.ShortCode)
+	url, err := s.UseCase.SearchUrl(req.Context(), urlInput.ShortCode, urlInput.FullUrl)
 	if err != nil {
 		resp.WriteHeader(http.StatusInternalServerError)
 		json.NewEncoder(resp).Encode(map[string]string{
