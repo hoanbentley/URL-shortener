@@ -4,4 +4,5 @@ package entities
 type User struct {
 	ID       string
 	Password string
+	Token    string
 }

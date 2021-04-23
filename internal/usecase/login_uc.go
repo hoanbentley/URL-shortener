@@ -8,14 +8,6 @@ import (
 	"time"
 )
 
-func (u *uc) Validate(ctx context.Context, user, password sql.NullString) bool {
-	if user.String == "" || password.String == "" {
-		log.Println("invalid user name - password")
-		return false
-	}
-	return u.url.ValidateUser(ctx, user, password)
-}
-
 func (u *uc) CreateToken(id, jwtKey string) (string, error) {
 	atClaims := jwt.MapClaims{}
 	atClaims["user_id"] = id
@@ -26,6 +18,14 @@ func (u *uc) CreateToken(id, jwtKey string) (string, error) {
 		return "", err
 	}
 	return token, nil
+}
+
+func (u *uc) Validate(ctx context.Context, user, password sql.NullString) bool {
+	if user.String == "" || password.String == "" {
+		log.Println("invalid user name - password")
+		return false
+	}
+	return u.url.ValidateUser(ctx, user, password)
 }
 
 func (u *uc) ValidToken(token, JWTKey string) (string, bool) {
