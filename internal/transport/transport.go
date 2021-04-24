@@ -23,30 +23,3 @@ func (t *Transport) GetValue(req *http.Request, param string) sql.NullString {
 		Valid:  true,
 	}
 }
-
-/*func (t *Transport) BuildEncodeFromShortCode() string {
-	hd := hashids.NewData()
-	h, _ := hashids.NewWithData(hd)
-	now := time.Now()
-	shortCode, _ := h.Encode([]int{int(now.Unix())})
-	return shortCode
-}
-
-func (t *Transport) BuildUrl(req *http.Request) (*entities.Urls, error) {
-	url := &entities.Urls{}
-	err := json.NewDecoder(req.Body).Decode(url)
-	defer req.Body.Close()
-	if err != nil {
-		return nil, err
-	}
-
-	//check full_url is null
-	if url.FullUrl == "" {
-		return nil, errors.New("full url is null")
-	}
-
-	//set again in url structure
-	url.ShortCode = t.BuildEncodeFromShortCode()
-	url.NumberOfHits = 1
-	return url, nil
-}*/

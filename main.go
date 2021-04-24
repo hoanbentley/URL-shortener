@@ -22,11 +22,11 @@ func main() {
 	router.HandleFunc("/{id}", todo.RedirectUrl).Methods(http.MethodGet)
 	http.ListenAndServe(":8080", router)
 
-	//statement, _ := database.Prepare("CREATE TABLE IF NOT EXISTS urls (id INTEGER PRIMARY KEY, short_code TEXT, full_url TEXT, expiry INTEGER, number_of_hits INTEGER)")
+	// statement, _ := database.Prepare("CREATE TABLE IF NOT EXISTS urls (id INTEGER PRIMARY KEY, short_code TEXT, full_url TEXT, expiry INTEGER, create_date INTEGER, number_of_hits INTEGER)")
 	/*database, _ := sql.Open("sqlite3", "./rabbit.db")
-	statement, _ := database.Prepare("CREATE TABLE IF NOT EXISTS urls (short_code TEXT, full_url TEXT, expiry INTEGER, number_of_hits INTEGER)")
-	statement.Exec()
-	*/
+	statement, _ := database.Prepare("DELETE FROM urls;")
+	statement.Exec()*/
+
 	/*database, _ := sql.Open("sqlite3", "./rabbit.db")
 	statement, _ := database.Prepare("CREATE TABLE IF NOT EXISTS users (user_id TEXT, password TEXT)")
 	statement.Exec()

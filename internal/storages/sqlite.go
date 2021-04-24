@@ -28,8 +28,8 @@ func NewLiteDB() *liteDB {
 }
 
 func (l *liteDB) GenerateUrl(ctx context.Context, url *entities.Urls) error {
-	stmt := `INSERT INTO urls (short_code, full_url, expiry, number_of_hits) VALUES (?, ?, ?, ?)`
-	_, err := l.db.ExecContext(ctx, stmt, &url.ShortCode, &url.FullUrl, &url.Expiry, &url.NumberOfHits)
+	stmt := `INSERT INTO urls (short_code, full_url, created_date, expiry, number_of_hits) VALUES (?, ?, ?, ?, ?)`
+	_, err := l.db.ExecContext(ctx, stmt, &url.ShortCode, &url.FullUrl, &url.CreatedDate, &url.Expiry, &url.NumberOfHits)
 	if err != nil {
 		return err
 	}
@@ -38,7 +38,7 @@ func (l *liteDB) GenerateUrl(ctx context.Context, url *entities.Urls) error {
 }
 
 func (l *liteDB) ListUrl(ctx context.Context) ([]*entities.Urls, error) {
-	stmt := `SELECT short_code, full_url, expiry,number_of_hits FROM urls`
+	stmt := `SELECT short_code, full_url, created_date, expiry, number_of_hits FROM urls`
 	rows, err := l.db.QueryContext(ctx, stmt)
 	if err != nil {
 		return nil, err
@@ -48,7 +48,7 @@ func (l *liteDB) ListUrl(ctx context.Context) ([]*entities.Urls, error) {
 	var urls []*entities.Urls
 	for rows.Next() {
 		url := &entities.Urls{}
-		err := rows.Scan(&url.ShortCode, &url.FullUrl, &url.Expiry, &url.NumberOfHits)
+		err := rows.Scan(&url.ShortCode, &url.FullUrl, &url.CreatedDate, &url.Expiry, &url.NumberOfHits)
 		if err != nil {
 			return nil, err
 		}
@@ -63,11 +63,11 @@ func (l *liteDB) ListUrl(ctx context.Context) ([]*entities.Urls, error) {
 }
 
 func (l *liteDB) GetUrl(ctx context.Context, shortCode string) (*entities.Urls, error) {
-	stmt := `SELECT short_code, full_url, expiry,number_of_hits FROM urls WHERE short_code = ?`
+	stmt := `SELECT short_code, full_url, created_date, expiry,number_of_hits FROM urls WHERE short_code = ?`
 	row := l.db.QueryRowContext(ctx, stmt, shortCode)
 
 	url := &entities.Urls{}
-	err := row.Scan(&url.ShortCode, &url.FullUrl, &url.Expiry, &url.NumberOfHits)
+	err := row.Scan(&url.ShortCode, &url.FullUrl, &url.CreatedDate, &url.Expiry, &url.NumberOfHits)
 	if err != nil {
 		return nil, err
 	}
@@ -104,7 +104,7 @@ func (l *liteDB) SearchUrl(ctx context.Context, shortCode, fullUrl string) ([]*e
 		fullUrl = "%" + fullUrl + "%"
 		where = append(where, fmt.Sprintf(" AND full_url LIKE '%s'", fullUrl))
 	}
-	stmt := "SELECT short_code, full_url, expiry,number_of_hits FROM urls WHERE 1 = 1 " + strings.Join(where, " ")
+	stmt := "SELECT short_code, full_url, created_date, expiry,number_of_hits FROM urls WHERE 1 = 1 " + strings.Join(where, " ")
 	rows, err := l.db.QueryContext(ctx, stmt)
 	if err != nil {
 		return nil, err
@@ -114,7 +114,7 @@ func (l *liteDB) SearchUrl(ctx context.Context, shortCode, fullUrl string) ([]*e
 	var urls []*entities.Urls
 	for rows.Next() {
 		url := &entities.Urls{}
-		err := rows.Scan(&url.ShortCode, &url.FullUrl, &url.Expiry, &url.NumberOfHits)
+		err := rows.Scan(&url.ShortCode, &url.FullUrl, &url.CreatedDate, &url.Expiry, &url.NumberOfHits)
 		if err != nil {
 			return nil, err
 		}
