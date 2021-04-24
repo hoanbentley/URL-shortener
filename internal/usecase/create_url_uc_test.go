@@ -23,7 +23,6 @@ func Test_uc_CreateUrl(t *testing.T) {
 		want    *entities.Urls
 		wantErr bool
 	}{
-		// TODO: Add test cases.
 		{
 			name: "case 1",
 			args: args{
