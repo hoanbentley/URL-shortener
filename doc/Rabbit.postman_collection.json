@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "ad7f0b5b-7d93-4cf1-bd62-fd61b66e6a24",
+		"_postman_id": "dd767daf-beec-4244-b301-eab0d970ba31",
 		"name": "Rabbit",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -10,6 +10,10 @@
 			"request": {
 				"method": "GET",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "localhost:8080/login?user_id=admin&password=admin",
 					"host": [
@@ -44,6 +48,10 @@
 						"type": "text"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
 					"raw": "localhost:8080/admin/list",
 					"host": [
@@ -65,12 +73,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"full_url\" : \"https://microservices.io/patterns/microservices.html<\",\n    \"expiry\" : 60\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					"raw": "{\n    \"full_url\" : \"https://microservices.io/patterns/microservices.html<\",\n    \"expiry\" : 60\n}"
 				},
 				"url": {
 					"raw": "localhost:8080/create",
@@ -96,8 +99,12 @@
 						"type": "text"
 					}
 				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
 				"url": {
-					"raw": "localhost:8080/admin/delete/ovxpDG3",
+					"raw": "localhost:8080/admin/delete/ovxpDG3?",
 					"host": [
 						"localhost"
 					],
@@ -131,12 +138,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"short_code\" : \"gxm1mEr\",\n    \"full_url\" : \"https://microservices.io/patterns/microservices.html\"\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+					"raw": "{\n    \"short_code\" : \"gxm1mEr\",\n    \"full_url\" : \"https://microservices.io/patterns/microservices.html\"\n}"
 				},
 				"url": {
 					"raw": "localhost:8080/admin/search",
