@@ -1,5 +1,5 @@
 ### Overview
-This is a service which named [URL-shortener] for a shorten link, this service base-on clean architecture, right now this service can handle login/list/create/search/redirect functions.
+This is a service which named [URL-shortener] for a shorten link, this service base-on clean architecture, right now this service can handle login/redirect/create/list/search/delete functions.
 To make it run:
 - `go run main.go`
 - Import Postman collection from `doc` to check example
@@ -12,7 +12,8 @@ To make it run:
 - Search
 - Delete
 
-![alt text](https://github.com/hoanbentley/URL-shortener/tree/main/doc/structure.png?raw=true)
+### Structure of project
+![Screenshot](doc/structure.png?raw=true)
 
 ### DB Schema
 ```sql
