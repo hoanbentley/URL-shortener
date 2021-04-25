@@ -34,5 +34,5 @@ func (u *uc) RedirectUrl(ctx context.Context, shortCode string) (*entities.Urls,
 	}
 
 	//return url struct with short url
-	return u.url.GetUrl(ctx, shortCode)
+	return url, nil
 }

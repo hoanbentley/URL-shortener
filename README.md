@@ -4,6 +4,9 @@ To make it run:
 - `go run main.go`
 - Import Postman collection from `doc` to check example
 
+### Structure of project
+![Screenshot](doc/structure.png?raw=true)
+
 ### List API
 - Login
 - Redirect
@@ -12,8 +15,23 @@ To make it run:
 - Search
 - Delete
 
-### Structure of project
-![Screenshot](doc/structure.png?raw=true)
+###Login function
+~[login](doc/login.png?raw=true)
+
+##Redirect function
+~[redirect](doc/redirect.png)
+
+###Create function
+~[create](doc/create.png)
+
+###List function
+~[list](doc/list.png)
+
+###Search function
+~[search](doc/search.png)
+
+###Delete function
+~[delete](doc/delete.png)
 
 ### DB Schema
 ```sql
@@ -32,7 +50,7 @@ CREATE TABLE urls (
 	id INTEGER PRIMARY KEY,
 	short_code TEXT NOT NULL,
 	full_url TEXT NOT NULL,
-    created_date INTEGER,
+	created_date INTEGER,
 	expiry INTEGER,
 	number_of_hits INTEGER
 );
