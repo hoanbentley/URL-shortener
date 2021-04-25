@@ -15,23 +15,41 @@ To make it run:
 - Search
 - Delete
 
-###Login function
-~[login](doc/login.png?raw=true)
+### Login function
+![login](doc/login.png)
+- This function used to admin need to login in order to access some functions like list, search, delete url.
 
-##Redirect function
-~[redirect](doc/redirect.png)
+### Redirect function
+![redirect](doc/redirect.png)
+- User just needs to access the link `localhost:8080/[short_code]` with the short code you need to input.
+- The system will get information about url in the database via short code.
+- Checking expiry of full url with the current time.
+- Update the number of hits when accessing the link valid.
+- Redirecting to full url.
 
-###Create function
-~[create](doc/create.png)
+### Create function
+![create](doc/create.png)
+- User has to input params with full url and expiry.
+- The system will check null and valid format with full url.
+- Escape with a special character.
+- Add a new url in the database.
 
-###List function
-~[list](doc/list.png)
+### List function
+![list](doc/list.png)
+- This function just only admin use via use token when you login into the system.
+- The system gets all the information about urls in the database.
 
-###Search function
-~[search](doc/search.png)
+### Search function
+![search](doc/search.png)
+- This function just only admin use via use token when you login into the system.
+- The system gets the information by input params like short code, full url.
 
-###Delete function
-~[delete](doc/delete.png)
+### Delete function
+![delete](doc/delete.png)
+- This function just only admin use via use token when you login into the system.
+- The system gets the information of url by input params like short code from the database.
+- The system will check null it.
+- Delete url by short code in the database.
 
 ### DB Schema
 ```sql
